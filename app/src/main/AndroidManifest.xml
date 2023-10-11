@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Group15_Assignment"
         tools:targetApi="31">
         <activity
+            android:name=".ColorMindActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
