@@ -10,56 +10,213 @@
     android:layout_marginEnd="16dp"
     tools:context=".ColorMindActivity">
     <LinearLayout
-        android:id="@+id/ll_row1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        tools:ignore="MissingConstraints">
-        <TextView
-            android:id="@+id/tv_color1_R"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/ll_row1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/tv_color1_R"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:layout_weight="0.25"
+                android:text="R"
+                android:textStyle="bold" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_color1R"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:layout_weight="1"
+                android:contentDescription="color 1 R"
+                android:stepSize="1"
+                android:value="0"
+                android:valueFrom="0"
+                android:valueTo="255" />
+
+            <TextView
+                android:id="@+id/tv_color2_R"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:layout_weight="0.25"
+                android:text="R"
+                android:textStyle="bold" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_color2R"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="color 1 R"
+                android:value="0"
+                android:stepSize="1"
+                android:valueFrom="0"
+                android:valueTo="255"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_row2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/tv_color1_G"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:layout_weight="0.25"
+                android:text="G"
+                android:textStyle="bold" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_color1G"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="color 1 R"
+                android:value="0"
+                android:stepSize="1"
+                android:valueFrom="0"
+                android:valueTo="255"
+                android:layout_weight="1"
+                android:layout_marginEnd="18dp"/>
+
+            <TextView
+                android:id="@+id/tv_color2_G"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:layout_weight="0.25"
+                android:text="G"
+                android:textStyle="bold" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_color2G"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="color 1 R"
+                android:value="0"
+                android:stepSize="1"
+                android:valueFrom="0"
+                android:valueTo="255"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_row3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/tv_color1_B"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:layout_weight="0.25"
+                android:text="B"
+                android:textStyle="bold" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_color1B"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="color 1 R"
+                android:value="0"
+                android:stepSize="1"
+                android:valueFrom="0"
+                android:valueTo="255"
+                android:layout_weight="1"
+                android:layout_marginEnd="18dp"/>
+
+            <TextView
+                android:id="@+id/tv_color2_B"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:layout_weight="0.25"
+                android:text="B"
+                android:textStyle="bold" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_color2B"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="color 1 R"
+                android:value="0"
+                android:stepSize="1"
+                android:valueFrom="0"
+                android:valueTo="255"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_row4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color 1 current selection"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color 2 current selection"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_row5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="48dp"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/tv_color1_RGB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[255, 255, 255]"
+                android:layout_marginEnd="48dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tv_color2_RGB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[255, 255, 255]"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/b_mix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:layout_marginTop="12dp"
-            android:text="R" />
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center"
+            android:text="mix"
 
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider_color1R"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:contentDescription="color 1 R"
-            android:value="0"
-            android:stepSize="1"
-            android:valueFrom="0"
-            android:valueTo="255"
-            android:layout_weight="1"
-            android:layout_marginEnd="24dp"/>
-
-        <TextView
-            android:id="@+id/tv_color2_R"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:layout_marginTop="12dp"
-            android:text="R" />
-
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider_color2R"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:contentDescription="color 1 R"
-            android:value="0"
-            android:stepSize="1"
-            android:valueFrom="0"
-            android:valueTo="255"
-            android:layout_weight="1"/>
-
-
+            />
     </LinearLayout>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
