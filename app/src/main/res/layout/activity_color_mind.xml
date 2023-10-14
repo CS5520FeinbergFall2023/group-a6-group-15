@@ -119,20 +119,27 @@
             android:id="@+id/tv_color1_RGB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="[255, 255, 255]"
             android:layout_gravity="center"
-            />
+            android:layout_marginTop="24dp"
+            android:text="[-, -, -]" />
 
         <Button
             android:id="@+id/b_generate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
             android:layout_gravity="center"
-            android:text="generate"
+            android:layout_marginTop="18dp"
+            android:onClick="generatePalette"
+            android:text="generate" />
 
-            />
+        <ProgressBar
+            android:id="@+id/simpleProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:visibility="invisible" />
+
         <LinearLayout
             android:id="@+id/ll_row6"
             android:layout_width="match_parent"

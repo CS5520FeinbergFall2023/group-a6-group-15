@@ -17,6 +17,7 @@
         >
         <activity
             android:name=".ColorMindActivity"
+            android:configChanges="screenSize|orientation|screenLayout|navigation"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
