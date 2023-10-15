@@ -29,7 +29,6 @@ import java.util.List;
 public class ColorMindActivity extends AppCompatActivity {
 
     List<String> palette;
-    private Handler viewHandler = new Handler();
     Slider redSlider;
     Slider greenSlider;
     Slider blueSlider;
@@ -43,10 +42,13 @@ public class ColorMindActivity extends AppCompatActivity {
     TextView colorPanel4;
     TextView colorPanel5;
 
+    private Handler viewHandler = new Handler();
+    private Slider.OnChangeListener onChangeListener = (slider, value, fromUser)->this.setRGBTextView();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_color_mind);
+        setLayout(getResources().getConfiguration());
 
         redSlider = findViewById(R.id.slider_color1R);
         greenSlider = findViewById(R.id.slider_color1G);
@@ -59,17 +61,7 @@ public class ColorMindActivity extends AppCompatActivity {
         colorPanel4 = findViewById(R.id.tv_palette_color_4);
         colorPanel5 = findViewById(R.id.tv_palette_color_5);
 
-
         progressBar = findViewById(R.id.simpleProgressBar);
-
-//        = new ProgressBar(this);
-//        progressBar.setIndeterminate(true);
-//        progressBar.setVisibility(View.INVISIBLE);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
-//        params.addRule(RelativeLayout.CENTER_IN_PARENT);
-//        this.addContentView(progressBar,params);
-
-        Slider.OnChangeListener onChangeListener = (slider, value, fromUser)->this.setRGBTextView();
         redSlider.addOnChangeListener(onChangeListener);
         greenSlider.addOnChangeListener(onChangeListener);
         blueSlider.addOnChangeListener(onChangeListener);
@@ -77,20 +69,29 @@ public class ColorMindActivity extends AppCompatActivity {
         rgbTV = findViewById(R.id.tv_color1_RGB);
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
+    private void setLayout(Configuration newConfig){
         if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
             setContentView(R.layout.activity_color_mind);
-        } else{
+        } else {
             setContentView(R.layout.activity_color_mind_horizontal);
         }
     }
 
-    public void setRGBTextView(){
-        List<Integer> colorVals = this.getColorsFromSliders();
-        rgbTV.setText("["+colorVals.get(0)+", "+colorVals.get(1)+", "+colorVals.get(2)+"]");
+    private void setRGBTextView(){
+        rgbTV.setBackgroundColor(Color.parseColor(rgbToHex(this.getColorsFromSliders())));
+    }
+
+    private String rgbToHex(List<Integer> color){
+        String returnColor = "";
+        for (int i = 0; i < color.size(); i++) {
+            int num = color.get(i);
+            String hex = Integer.toHexString(num);
+            if (hex.length() == 1) {
+                hex = "0" + hex;
+            }
+            returnColor += hex;
+        }
+        return "#"+returnColor;
     }
 
     public void generatePalette(View view) throws MalformedURLException {
@@ -103,7 +104,6 @@ public class ColorMindActivity extends AppCompatActivity {
 
     private void setPaletteColors(){
         if(this.palette!=null){
-            System.out.println("BOOYA:"+ palette);
             colorPanel1.setBackgroundColor(Color.parseColor(palette.get(0)));
             colorPanel2.setBackgroundColor(Color.parseColor(palette.get(1)));
             colorPanel3.setBackgroundColor(Color.parseColor(palette.get(2)));
@@ -156,7 +156,7 @@ public class ColorMindActivity extends AppCompatActivity {
                 }
                 colorString = colorString.substring(0, colorString.length() - 1);
 
-                String inputString = "{\"input\":[[" + colorString + "], \"N\"],\"model\":\"default\"}";
+                String inputString = "{\"input\":[[" + colorString + "], \"N\", \"N\", \"N\", \"N\"],\"model\":\"default\"}";
 
                 System.out.println("INPUT : " + inputString);
 
@@ -218,7 +218,6 @@ public class ColorMindActivity extends AppCompatActivity {
                 setPaletteColors();
             });
         }
-
     }
 
 }
