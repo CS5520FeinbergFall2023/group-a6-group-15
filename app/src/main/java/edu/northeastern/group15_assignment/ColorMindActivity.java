@@ -205,12 +205,6 @@ public class ColorMindActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
 
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             viewHandler.post(() -> {
                 generateButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
