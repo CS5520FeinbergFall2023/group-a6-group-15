@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/groupName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Group 15"
@@ -19,6 +19,17 @@
         app:layout_constraintVertical_bias="0.10" />
 
     <Button
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:onClick="onAboutClick"
+        android:text="About"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupName" />
+
+    <Button
         android:id="@+id/color_mind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,6 +38,17 @@
         android:text="A6: ColorMind"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/about" />
+
+    <Button
+        android:id="@+id/stick_it"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:onClick="onStickitClick"
+        android:text="A8: Stick it"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/color_mind" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

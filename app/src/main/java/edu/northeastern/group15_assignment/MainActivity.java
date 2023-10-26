@@ -14,7 +14,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void onAboutClick(View view) {
+        startActivity(new Intent(this, AboutGroupActivity.class));
+    }
+
     public void onColorMindClick(View view) {
         startActivity(new Intent(this, ColorMindActivity.class));
+    }
+
+    public void onStickitClick(View view) {
+        startActivity(new Intent(this, StickItLoginActivity.class));
     }
 }
