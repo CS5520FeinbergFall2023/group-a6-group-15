@@ -6,7 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
 public class MainActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,10 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onAboutClick(View view) {
         startActivity(new Intent(this, AboutGroupActivity.class));
+
+
     }
 
     public void onColorMindClick(View view) {
         startActivity(new Intent(this, ColorMindActivity.class));
+
     }
 
     public void onStickitClick(View view) {
