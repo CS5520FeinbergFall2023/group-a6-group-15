@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "214791911588",
-    "firebase_url": "https://a8-group15-mobile-default-rtdb.firebaseio.com",
-    "project_id": "a8-group15-mobile",
-    "storage_bucket": "a8-group15-mobile.appspot.com"
+    "project_number": "409681446146",
+    "firebase_url": "https://a8-group15-new-default-rtdb.firebaseio.com",
+    "project_id": "a8-group15-new",
+    "storage_bucket": "a8-group15-new.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:214791911588:android:7dd49a6c400965cfdb0e31",
+        "mobilesdk_app_id": "1:409681446146:android:57eb45910ba94555226e1b",
         "android_client_info": {
           "package_name": "edu.northeastern.group15_assignment"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDouVVpw0FFsqbj0ctiqLY0NZPWc3I2MAY"
+          "current_key": "AIzaSyBmtLOtlirSykOuxWCgLky4iS09Qh8F0wQ"
         }
       ],
       "services": {
