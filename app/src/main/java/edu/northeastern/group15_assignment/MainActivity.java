@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -76,11 +78,64 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, AboutGroupActivity.class));
 
         rootNode = FirebaseDatabase.getInstance();
+
+        // Connect to the database
+        rootNode.getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/").setValue("Hello, World!").addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                System.out.println("failed");
+                System.out.println(task.getException());
+            }
+            else {
+                System.out.println("success");
+                System.out.println(task.getResult());
+            }
+        });
+
+
         reference = rootNode.getReference("message");
+
+
+        // Get the current value in the database
+//        reference.get().addOnCompleteListener(task -> {
+//            if (!task.isSuccessful()) {
+//                System.out.println("failed");
+//                System.out.println(task.getException());
+//            }
+//            else {
+//                System.out.println("success");
+//                System.out.println(task.getResult().getValue());
+//            }
+//        });
+
         System.out.println("reference");
         System.out.println(reference);
 
-        reference.setValue("Fire data storage");
+//        try {
+//            Task result = reference.setValue("Fire data storage");
+//
+//            while(!result.isComplete()) {
+//                // sleep for 5 ms
+//                try {
+//                    Thread.sleep(5);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            result.addOnFailureListener(e -> {
+//                System.out.println("failed");
+//                System.out.println(e);
+//            });
+//            result.addOnSuccessListener(e -> {
+//                System.out.println("success");
+//                System.out.println(e);
+//            });
+//            System.out.println("resulthfdsougfigdfiy");
+//            System.out.println();
+//        } catch (Exception e) {
+//            System.out.println("\n\n\n!!!error!!!");
+//            System.out.println(e);
+//        }
 
         System.out.println("so far so good");
 
