@@ -7,7 +7,7 @@
     tools:context=".StickItActivity">
 
     <TextView
-        android:id="@+id/banner_tv"
+        android:id="@+id/stick_it_banner"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="#18C5BF"
@@ -31,7 +31,7 @@
         android:text="Send To:"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/stick_it_banner" />
 
     <EditText
         android:id="@+id/sendto_uname"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/sendto_label"
-        app:layout_constraintTop_toBottomOf="@+id/banner_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/stick_it_banner" />
 
     <TextView
         android:id="@+id/choose_label"

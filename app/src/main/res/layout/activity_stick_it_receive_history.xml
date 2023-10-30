@@ -7,7 +7,7 @@
     tools:context=".StickItReceiveHistoryActivity">
 
     <TextView
-        android:id="@+id/banner_tv"
+        android:id="@+id/stick_it_banner"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="#18C5BF"

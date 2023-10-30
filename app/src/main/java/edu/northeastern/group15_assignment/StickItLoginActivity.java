@@ -9,8 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class StickItLoginActivity extends AppCompatActivity {
 
@@ -35,19 +41,14 @@ public class StickItLoginActivity extends AppCompatActivity {
 
         // Validate the presence of a username in the username list of the database
         if (
-                rootNode
-                .getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/")
-                .getRef()
-                .child("username")
-                .child(username) == null
+                validateUsernameInDatabase(username)
         ) {
+            // If the username is present, display a snackbar with the message "Login successful"
+            Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
+        } else {
             // If the username is not present, display a snackbar with the message "Username not found"
             Toast.makeText(getApplicationContext(), "Username not found", Toast.LENGTH_LONG).show();
             return;
-        }
-        else {
-            // If the username is present, display a snackbar with the message "Login successful"
-            Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
         }
 
         // If the username is present, display a snackbar with the message "Login successful"
@@ -56,7 +57,9 @@ public class StickItLoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, StickItActivity.class);
         intent.putExtra("username", username);
 
-        startActivity(new Intent(this, StickItActivity.class));
+        System.out.println("CURRENT USERNAME LOGIN PAGE:" + username);
+
+        startActivity(intent);
     }
 
     private boolean validateUsername(String username){
@@ -82,18 +85,38 @@ public class StickItLoginActivity extends AppCompatActivity {
         return true;
     }
 
+    private DataSnapshot getValueFromDataSnapshot(Task<DataSnapshot> task) {
+        // wait for the task to complete
+        while (!task.isComplete()) {
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return task.getResult();
+    }
+
+    private boolean validateUsernameInDatabase(String username) {
+        return getValueFromDataSnapshot(rootNode.getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/").getRef().child("username").child(username).get()).getValue() != null;
+    }
+
     public void onRegisterClick(View view){
         // Validate the username
         String username = ((TextView) findViewById(R.id.username_tv)).getText().toString();
+
+        System.out.println("DBG USERNAME:" + username);
 
         if (!validateUsername(username)) {
             // If the username is invalid, display a snackbar with the message "Invalid username"
             Toast.makeText(getApplicationContext(), "Invalid username", Toast.LENGTH_LONG).show();
             return;
         }
+        System.out.println("DBG DATABASE REF");
+        Object username_present = getValueFromDataSnapshot(rootNode.getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/").getRef().child("username").child(username).get()).getValue();
 
         // Check if a user is already registered with the said username
-        if (rootNode.getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/").getRef().child("username").child(username) != null) {
+        if (username_present != null) {
             // If a user is already registered with the said username, display a snackbar with the message "Username already taken"
             Toast.makeText(getApplicationContext(), "Username already taken", Toast.LENGTH_LONG).show();
             return;
@@ -101,7 +124,12 @@ public class StickItLoginActivity extends AppCompatActivity {
 
         // If the username is valid, add the username to the username list of the database
         // and display a snackbar with the message "Registration successful"
-        rootNode.getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/").getRef().child("username").child(username).setValue(true).addOnCompleteListener(task -> {
+        rootNode.getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/").getRef()
+                .child("username")
+                .child(username)
+                .child("exists")
+                .setValue(true)
+                .addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 // FAILURE
                 // Make a toast
@@ -110,12 +138,78 @@ public class StickItLoginActivity extends AppCompatActivity {
             }
             else {
                 Toast.makeText(getApplicationContext(), "User registered successfully", Toast.LENGTH_LONG).show();
-                System.out.println("SUCCESS:" + task.getResult().toString());
+                System.out.println("SUCCESS:" + task.getResult());
             }
         });
 
+        // Add a friends key to the user's entry in the database
+        rootNode.getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/").getRef()
+                .child("username")
+                .child(username)
+                .child("friends")
+                .setValue(List.of(""))
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        // FAILURE
+                        // Make a toast
+                        Toast.makeText(getApplicationContext(), "Failed to register user. Please try again", Toast.LENGTH_LONG).show();
+                        System.out.println("ERROR:" + task.getException().getMessage());
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "User registered successfully", Toast.LENGTH_LONG).show();
+                        System.out.println("SUCCESS:" + task.getResult());
+                    }
+                });
+
+        // Add a stickers key to the user's entry in the database
+        rootNode.getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/").getRef()
+                .child("username")
+                .child(username)
+                .child("stickers_received")
+                .setValue(List.of(""))
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        // FAILURE
+                        // Make a toast
+                        Toast.makeText(getApplicationContext(), "Failed to register user. Please try again", Toast.LENGTH_LONG).show();
+                        System.out.println("ERROR:" + task.getException().getMessage());
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "User registered successfully", Toast.LENGTH_LONG).show();
+                        System.out.println("SUCCESS:" + task.getResult());
+                    }
+                });
+
+        // Add map of sticker counts to the user's entry in the database
+        Map<String, Long> blankCounts = new HashMap<String, Long>();
+        blankCounts.put("HAPPY", Integer.toUnsignedLong( 0));
+        blankCounts.put("SAD", Integer.toUnsignedLong(0));
+        blankCounts.put("COOL", Integer.toUnsignedLong(0));
+        rootNode.getReferenceFromUrl("https://a8-group15-new-default-rtdb.firebaseio.com/").getRef()
+                .child("username")
+                .child(username)
+                .child("sticker_counts")
+                .setValue(blankCounts)
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        // FAILURE
+                        // Make a toast
+                        Toast.makeText(getApplicationContext(), "Failed to register user. Please try again", Toast.LENGTH_LONG).show();
+                        System.out.println("ERROR:" + task.getException().getMessage());
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "User registered successfully", Toast.LENGTH_LONG).show();
+                        System.out.println("SUCCESS:" + task.getResult());
+                    }
+                });
+
         // and start the StickItActivity
-        startActivity(new Intent(this, StickItActivity.class));
+        Intent intent = new Intent(this, StickItActivity.class);
+        intent.putExtra("username", username);
+
+        System.out.println("CURRENT USERNAME LOGIN PAGE:" + username);
+
+        startActivity(intent);
     }
 
     @Override

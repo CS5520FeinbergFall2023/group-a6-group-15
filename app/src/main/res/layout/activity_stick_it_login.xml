@@ -7,12 +7,12 @@
     tools:context=".StickItLoginActivity">
 
     <TextView
-        android:id="@+id/banner_tv"
+        android:id="@+id/stick_it_banner"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_margin="2dp"
         android:background="#18C5BF"
-        android:text="Stick It"
+        android:text="Stick It - Login"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
