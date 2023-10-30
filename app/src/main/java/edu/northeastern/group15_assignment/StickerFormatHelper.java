@@ -1,5 +1,8 @@
 package edu.northeastern.group15_assignment;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Map;
@@ -15,5 +18,9 @@ public class StickerFormatHelper {
                 sticker.get("from"),
                 stickerReceiveTime.toString()
         );
+    }
+
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        return android.graphics.BitmapFactory.decodeResource(context.getResources(), drawableId);
     }
 }

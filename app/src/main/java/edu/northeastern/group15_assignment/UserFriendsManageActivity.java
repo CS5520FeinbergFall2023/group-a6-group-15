@@ -27,6 +27,8 @@ public class UserFriendsManageActivity extends AppCompatActivity {
 
     static List<String> allFriendsLocal;
 
+    String currentUsername;
+
     private boolean validateUsername(String username){
         // No empty string
         // No null
@@ -68,7 +70,7 @@ public class UserFriendsManageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_friends_manage);
 
-        String currentUsername = getIntent().getStringExtra("username");
+        currentUsername = getIntent().getStringExtra("username");
 
         System.out.println("CURRENT USERNAME FRIENDS PAGE:" + currentUsername);
 
@@ -149,5 +151,17 @@ public class UserFriendsManageActivity extends AppCompatActivity {
                 System.out.println("UPDATES : " + friendListRecyclerView.hasPendingAdapterUpdates());
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("username", this.currentUsername);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.currentUsername = savedInstanceState.getString("username");
     }
 }

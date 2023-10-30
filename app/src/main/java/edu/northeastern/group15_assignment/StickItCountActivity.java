@@ -52,4 +52,16 @@ public class StickItCountActivity extends AppCompatActivity {
         sadCount.setText("SAD: " + stickerCounts.get("SAD"));
         coolCount.setText("COOL: " + stickerCounts.get("COOL"));
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("username", this.currentUser);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.currentUser = savedInstanceState.getString("username");
+    }
 }

@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,11 @@ public class StickItActivity extends AppCompatActivity {
         // Retrieve the username of the user from the edittext with id username
         String username = ((EditText) findViewById(R.id.sendto_uname)).getText().toString();
 
+        if (username.isEmpty() || username == null) {
+            Toast.makeText(getApplicationContext(), "Please enter a user to send to", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         System.out.println("USERNAME SENDTO: " + username);
 
         DataSnapshot friendsDataSnapshot = getValueFromDataSnapshot(
@@ -122,10 +128,11 @@ public class StickItActivity extends AppCompatActivity {
             if (userStickers == null) {
                 userStickers = List.of();
             }
+            List<Map<String, String>> userStickersClone = new ArrayList<>(userStickers);
 
             // Send the sticker to the intended user by adding it to the user's sticker list
             // Add timestamp, sticker, and from to the sticker
-            userStickers.add(Map.of("timestamp", Long.toString(System.currentTimeMillis()), "sticker", this.stickerSelected, "from", currentUser));
+            userStickersClone.add(Map.of("timestamp", Long.toString(System.currentTimeMillis()), "sticker", this.stickerSelected, "from", currentUser));
 
             // Increment the sticker count in the current user's sticker count
             DataSnapshot currentUserStickerCountDataSnapshot = getValueFromDataSnapshot(
@@ -151,7 +158,7 @@ public class StickItActivity extends AppCompatActivity {
                     .child("username")
                     .child(username)
                     .child("stickers_received")
-                    .setValue(userStickers)
+                    .setValue(userStickersClone)
                     .addOnCompleteListener(task -> {
                         if (!task.isSuccessful()) {
                             // FAILURE
@@ -204,5 +211,19 @@ public class StickItActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UserFriendsManageActivity.class);
         intent.putExtra("username", currentUser);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("stickerSelected", this.stickerSelected);
+        savedInstanceState.putString("currentUser", this.currentUser);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.stickerSelected = savedInstanceState.getString("stickerSelected");
+        this.currentUser = savedInstanceState.getString("currentUser");
     }
 }
